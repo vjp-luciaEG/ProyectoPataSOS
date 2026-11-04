@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PataSOS · Urgencias veterinarias en tu bolsillo</title>
+    <meta name="description"
+        content="PataSOS conecta a las familias con su clínica veterinaria de urgencias: seguimiento en directo, visitas, chat y tienda.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0d2b3a;
+            --sea: #12687a;
+            --mist: #e9f3f4;
+            --paper: #fbfdfd;
+            --alert: #e8433a;
+            --ok: #2e9e6b;
+            --line: #cfe1e4;
+            --r: 18px
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font: 400 1.05rem/1.65 Figtree, system-ui, sans-serif;
+            color: var(--ink);
+            background: var(--paper)
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Bricolage Grotesque", Figtree, sans-serif;
+            line-height: 1.1;
+            letter-spacing: -.02em
+        }
+
+        h1 {
+            font-size: clamp(2.4rem, 6vw, 4.4rem);
+            font-weight: 800
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 1rem
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: .3rem
+        }
+
+        a {
+            color: inherit
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--alert);
+            outline-offset: 3px
+        }
+
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 1.4rem
+        }
+
+        section {
+            padding: 4.5rem 0
+        }
+
+        .lead {
+            max-width: 62ch;
+            font-size: 1.15rem
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: rgba(251, 253, 253, .92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        header .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: .7rem;
+            padding-bottom: .7rem
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font: 800 1.35rem "Bricolage Grotesque", sans-serif;
+            text-decoration: none
+        }
+
+        nav {
+            display: flex;
+            gap: 1.3rem;
+            font-weight: 500;
+            font-size: .95rem
+        }
+
+        nav a {
+            text-decoration: none
+        }
+
+        nav a:hover {
+            color: var(--alert)
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--alert);
+            color: #fff;
+            font-weight: 700;
+            padding: .85rem 1.5rem;
+            border-radius: 999px;
+            text-decoration: none;
+            border: 2px solid var(--alert)
+        }
+
+        .btn:hover {
+            background: #c9352d
+        }
+
+        .btn.ghost {
+            background: none;
+            color: var(--ink);
+            border-color: var(--ink)
+        }
+
+        .btn.ghost:hover {
+            background: var(--ink);
+            color: #fff
+        }
+
+        .hero {
+            background: var(--mist);
+            padding: 4rem 0 5rem
+        }
+
+        .hero .wrap {
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 3rem;
+            align-items: center
+        }
+
+        .hero p {
+            margin: 1.3rem 0 1.8rem;
+            max-width: 50ch;
+            font-size: 1.2rem
+        }
+
+        .hero .btns {
+            display: flex;
+            gap: .8rem;
+            flex-wrap: wrap
+        }
+
+        .pulse {
+            display: inline-block;
+            width: .7em;
+            height: .7em;
+            border-radius: 50%;
+            background: var(--alert);
+            margin-right: .4em;
+            animation: p 1.6s ease-out infinite
+        }
+
+        @keyframes p {
+            0% {
+                box-shadow: 0 0 0 0 rgba(232, 67, 58, .6)
+            }
+
+            100% {
+                box-shadow: 0 0 0 .8em rgba(232, 67, 58, 0)
+            }
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .pulse {
+                animation: none
+            }
+
+            html {
+                scroll-behavior: auto
+            }
+        }
+
+        /* móvil de ejemplo */
+        .phone {
+            width: min(290px, 100%);
+            margin: 0 auto;
+            background: var(--ink);
+            border-radius: 34px;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(13, 43, 58, .25)
+        }
+
+        .screen {
+            background: #fff;
+            border-radius: 26px;
+            padding: 1.1rem 1rem 1.2rem;
+            min-height: 430px;
+            font-size: .88rem;
+            line-height: 1.4
+        }
+
+        .screen h4 {
+            font: 800 1.05rem "Bricolage Grotesque", sans-serif;
+            margin-bottom: .1rem
+        }
+
+        .chip {
+            display: inline-block;
+            font-weight: 700;
+            font-size: .75rem;
+            padding: .15rem .6rem;
+            border-radius: 99px;
+            background: #fde7e5;
+            color: #b3261e
+        }
+
+        .chip.g {
+            background: #dff3e8;
+            color: #1d704a
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+            margin: .9rem 0 0;
+            border-left: 3px solid var(--line);
+            margin-left: .5rem
+        }
+
+        .steps li {
+            position: relative;
+            padding: 0 0 .8rem 1rem
+        }
+
+        .steps li:before {
+            content: "";
+            position: absolute;
+            left: -.62rem;
+            top: .25rem;
+            width: .8rem;
+            height: .8rem;
+            border-radius: 50%;
+            background: var(--line)
+        }
+
+        .steps li.done:before {
+            background: var(--ok)
+        }
+
+        .steps li.now:before {
+            background: var(--alert)
+        }
+
+        .steps b {
+            display: block
+        }
+
+        .pet {
+            display: flex;
+            gap: .6rem;
+            align-items: center;
+            margin: .7rem 0
+        }
+
+        .pet i {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--mist);
+            display: grid;
+            place-items: center;
+            font-style: normal;
+            font-size: 1.3rem
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: .5rem;
+            padding: .55rem 0;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .msg {
+            padding: .5rem .7rem;
+            border-radius: 14px;
+            margin: .4rem 0;
+            max-width: 85%
+        }
+
+        .msg.v {
+            background: var(--mist)
+        }
+
+        .msg.u {
+            background: var(--sea);
+            color: #fff;
+            margin-left: auto
+        }
+
+        /* secciones */
+        .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start
+        }
+
+        .problem {
+            background: var(--ink);
+            color: #e9f3f4
+        }
+
+        .problem h2 {
+            color: #fff
+        }
+
+        .problem ul {
+            padding-left: 1.1rem
+        }
+
+        .problem li {
+            margin: .6rem 0
+        }
+
+        .profiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+            margin-top: 2rem
+        }
+
+        .profile {
+            border-top: 4px solid var(--sea);
+            padding-top: 1rem
+        }
+
+        .profile:nth-child(2) {
+            border-color: var(--alert)
+        }
+
+        .profile:nth-child(3) {
+            border-color: var(--ok)
+        }
+
+        .profile p {
+            margin: .4rem 0
+        }
+
+        .profile small {
+            display: block;
+            margin-top: .6rem;
+            color: #46606b
+        }
+
+        .feats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-top: 2.4rem;
+            align-items: start
+        }
+
+        .feat p {
+            margin-top: 1rem
+        }
+
+        .benefits {
+            background: var(--mist)
+        }
+
+        .benefits dl {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 3rem;
+            margin-top: 1.6rem
+        }
+
+        .benefits dt {
+            font-weight: 700
+        }
+
+        .benefits dd {
+            margin: 0 0 .2rem;
+            color: #27495a
+        }
+
+        .tablewrap {
+            overflow-x: auto;
+            margin-top: 1.6rem
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 620px;
+            background: #fff;
+            border-radius: var(--r);
+            overflow: hidden
+        }
+
+        th,
+        td {
+            padding: .8rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--line)
+        }
+
+        th {
+            background: var(--ink);
+            color: #fff;
+            font-weight: 600
+        }
+
+        td.y {
+            color: #1d704a;
+            font-weight: 700
+        }
+
+        td.n {
+            color: #9a5b57
+        }
+
+        .team {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+            margin-top: 1.6rem
+        }
+
+        .member {
+            display: flex;
+            gap: .9rem;
+            align-items: center
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--sea);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font: 800 1.2rem "Bricolage Grotesque", sans-serif
+        }
+
+        .contact {
+            background: var(--ink);
+            color: #fff;
+            text-align: center
+        }
+
+        .contact h2 {
+            color: #fff
+        }
+
+        .contact a.mail {
+            font: 800 clamp(1.3rem, 3vw, 2rem) "Bricolage Grotesque", sans-serif;
+            color: #fff
+        }
+
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: .9rem;
+            color: #46606b
+        }
+
+        @media (max-width:860px) {
+
+            .hero .wrap,
+            .two,
+            .profiles,
+            .feats,
+            .benefits dl,
+            .team {
+                grid-template-columns: 1fr
+            }
+
+            nav {
+                display: none
+            }
+
+            section {
+                padding: 3.2rem 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="wrap">
+            <a class="brand" href="#inicio" aria-label="PataSOS, inicio">
+                <svg width="34" height="34" viewBox="0 0 64 64" role="img" aria-hidden="true">
+                    <rect width="64" height="64" rx="16" fill="#e8433a" />
+                    <g fill="#fff">
+                        <ellipse cx="20" cy="26" rx="5" ry="6.5" />
+                        <ellipse cx="32" cy="19" rx="5" ry="6.5" />
+                        <ellipse cx="44" cy="26" rx="5" ry="6.5" />
+                        <path d="M32 30c-8 0-14 7-14 12 0 4 3 6 7 6 3 0 5-1 7-1s4 1 7 1c4 0 7-2 7-6 0-5-6-12-14-12z" />
+                    </g>
+                    <path d="M32 34v12M26 40h12" stroke="#e8433a" stroke-width="4" stroke-linecap="round" />
+                </svg>
+                PataSOS
+            </a>
+            <nav aria-label="Principal">
+                <a href="#problema">El problema</a><a href="#publico">Para quién</a><a href="#funciones">Funciones</a><a
+                    href="#diferencia">Por qué PataSOS</a><a href="#equipo">Equipo</a>
+            </nav>
+            <a class="btn" href="#contacto">Contacto</a>
+        </div>
+    </header>
+
+    <main id="inicio">
+        <section class="hero">
+            <div class="wrap">
+                <div>
+                    <h1>Cuando cada minuto cuenta, tu mascota no espera sola.</h1>
+                    <p>PataSOS es la app que conecta a las familias con la clínica veterinaria de urgencias: sigues el
+                        estado de tu mascota en directo, hablas con el equipo y gestionas visitas y compras desde el
+                        móvil.</p>
+                    <div class="btns"><a class="btn" href="#funciones">Ver cómo funciona</a><a class="btn ghost"
+                            href="#problema">Qué problema resuelve</a></div>
+                </div>
+                <div class="phone" role="img"
+                    aria-label="Captura de ejemplo: seguimiento en directo de una mascota ingresada por urgencias">
+                    <div class="screen">
+                        <span class="chip"><span class="pulse"></span>Urgencia en curso</span>
+                        <div class="pet"><i>🐶</i>
+                            <div>
+                                <h4>Rocky</h4><span>Labrador · 6 años</span>
+                            </div>
+                        </div>
+                        <ul class="steps">
+                            <li class="done"><b>Recibido</b>21:42 · Triaje realizado</li>
+                            <li class="done"><b>Pruebas</b>21:58 · Radiografía lista</li>
+                            <li class="now"><b>En tratamiento</b>22:15 · Dra. Prieto</li>
+                            <li><b>Recuperación</b>Te avisamos al instante</li>
+                        </ul>
+                        <div class="msg v">Rocky está estable. Puedes pasar a verle en 20 min.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="problema" class="problem">
+            <div class="wrap two">
+                <div>
+                    <h2>Una urgencia veterinaria es una espera a ciegas</h2>
+                    <p class="lead">Cuando una mascota entra a urgencias, la familia se queda en la sala sin saber qué
+                        pasa. La información llega tarde, por teléfono o en persona, y el equipo veterinario pierde
+                        tiempo respondiendo las mismas dudas.</p>
+                </div>
+                <ul>
+                    <li>No se sabe cuánto va a durar la atención ni en qué punto está la mascota.</li>
+                    <li>Las llamadas constantes saturan la recepción de la clínica.</li>
+                    <li>Los horarios de visita y de alta son confusos y cambian sin aviso.</li>
+                    <li>El historial, las recetas y los productos necesarios están repartidos en papeles y mensajes.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publico">
+            <div class="wrap">
+                <h2>Pensada para quienes más lo necesitan</h2>
+                <p class="lead">PataSOS es útil para las familias con mascota y también para las clínicas que las
+                    atienden. Más información clara para unos, menos interrupciones para otros.</p>
+                <div class="profiles">
+                    <div class="profile">
+                        <h3>Familias con mascota</h3>
+                        <p>Personas de 20 a 65 años, con perro, gato u otro animal que forma parte de su familia, y
+                            acostumbradas a usar el móvil para todo.</p>
+                        <p><b>Necesitan:</b> saber cómo está su mascota, poder comunicarse sin esperar y no desplazarse
+                            a ciegas.</p>
+                        <small>Beneficio: tranquilidad y tiempo.</small>
+                    </div>
+                    <div class="profile">
+                        <h3>Clínicas de urgencias</h3>
+                        <p>Equipos veterinarios con picos de trabajo imprevisibles y poco tiempo para atender al
+                            teléfono.</p>
+                        <p><b>Necesitan:</b> informar rápido, ordenar las visitas y recibir menos llamadas repetidas.
+                        </p>
+                        <small>Beneficio: menos carga administrativa.</small>
+                    </div>
+                    <div class="profile">
+                        <h3>Cuidadores y protectoras</h3>
+                        <p>Personas que gestionan varios animales, adopciones o acogidas y comparten responsabilidad con
+                            otras personas.</p>
+                        <p><b>Necesitan:</b> historial compartido, avisos y acceso fácil a medicación y productos.</p>
+                        <small>Beneficio: coordinación sin papeleo.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="funciones" style="background:var(--mist)">
+            <div class="wrap">
+                <h2>Cuatro funciones clave, una sola app</h2>
+                <p class="lead">Todo lo que una familia necesita durante y después de una urgencia, sin cambiar de
+                    aplicación.</p>
+                <div class="feats">
+                    <div class="feat">
+                        <div class="phone" style="width:230px" role="img"
+                            aria-label="Captura de ejemplo: ficha de la mascota con estado actual">
+                            <div class="screen" style="min-height:300px">
+                                <h4>Seguimiento de mascota</h4><span class="chip g">Estable</span>
+                                <div class="row"><span>Temperatura</span><b>38,6 °C</b></div>
+                                <div class="row"><span>Medicación</span><b>22:30</b></div>
+                                <div class="row"><span>Próxima revisión</span><b>23:15</b></div>
+                                <div class="row"><span>Alta prevista</span><b>Mañana</b></div>
+                            </div>
+                        </div>
+                        <p><b>Seguimiento en tiempo real.</b> Estado, pruebas, tratamientos y alta prevista,
+                            actualizados por el equipo veterinario.</p>
+                    </div>
+                    <div class="feat">
+                        <div class="phone" style="width:230px" role="img"
+                            aria-label="Captura de ejemplo: horario de visitas y chat con la clínica">
+                            <div class="screen" style="min-height:300px">
+                                <h4>Visitas y chat</h4>
+                                <div class="row"><span>Hoy</span><b>20:00 – 21:00</b></div>
+                                <div class="msg u">¿Puedo llevarle su manta?</div>
+                                <div class="msg v">Claro, déjala en recepción y se la damos.</div>
+                            </div>
+                        </div>
+                        <p><b>Visitas y comunicación eficiente.</b> Horarios claros, avisos al instante y chat directo
+                            con la clínica en lugar de llamadas.</p>
+                    </div>
+                    <div class="feat">
+                        <div class="phone" style="width:230px" role="img"
+                            aria-label="Captura de ejemplo: tienda de productos veterinarios">
+                            <div class="screen" style="min-height:300px">
+                                <h4>Tienda en la app</h4>
+                                <div class="row"><span>🦴 Pienso digestivo</span><b>18,90 €</b></div>
+                                <div class="row"><span>🧴 Antiséptico</span><b>7,50 €</b></div>
+                                <div class="row"><span>🛏️ Cono blando</span><b>11,00 €</b></div>
+                                <div class="row"><span>Recogida en clínica</span><b>Gratis</b></div>
+                            </div>
+                        </div>
+                        <p><b>Compras sin salir de la app.</b> Pide lo que el veterinario recomienda y recógelo al irte,
+                            con tu receta y tu historial a mano.</p>
+                    </div>
+                </div>
+                <p class="lead" style="margin-top:2.4rem"><b>Además:</b> historial clínico de cada mascota,
+                    recordatorios de vacunas y medicación, y envío de documentos (informes y facturas) a tu móvil.</p>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="wrap">
+                <h2>Qué aporta a cada persona que la usa</h2>
+                <dl>
+                    <div>
+                        <dt>Tranquilidad</dt>
+                        <dd>Sabes en todo momento cómo está tu mascota, aunque no estés en la sala.</dd>
+                    </div>
+                    <div>
+                        <dt>Tiempo</dt>
+                        <dd>Menos esperas, menos llamadas y desplazamientos que no hacen falta.</dd>
+                    </div>
+                    <div>
+                        <dt>Orden</dt>
+                        <dd>Historial, recetas y compras en un solo lugar, siempre al alcance.</dd>
+                    </div>
+                    <div>
+                        <dt>Confianza</dt>
+                        <dd>Información clara y trazable, que refuerza la relación con la clínica.</dd>
+                    </div>
+                </dl>
+                <p class="lead" style="margin-top:2rem"><b>¿Por qué merece la pena desarrollarla?</b> Las urgencias son
+                    el momento de más estrés para una familia y de más presión para una clínica. Una app que mejora la
+                    información en ese momento tiene un valor claro y inmediato.</p>
+            </div>
+        </section>
+
+        <section id="diferencia">
+            <div class="wrap">
+                <h2>Qué nos diferencia</h2>
+                <p class="lead">Muchas apps veterinarias sirven para pedir cita. PataSOS está diseñada para el momento
+                    de la urgencia.</p>
+                <div class="tablewrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Funcionalidad</th>
+                                <th>PataSOS</th>
+                                <th>Llamar por teléfono</th>
+                                <th>Apps de cita previa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Estado de la mascota en directo</td>
+                                <td class="y">Sí</td>
+                                <td class="n">No</td>
+                                <td class="n">No</td>
+                            </tr>
+                            <tr>
+                                <td>Horario de visitas y avisos</td>
+                                <td class="y">Sí</td>
+                                <td class="n">Manual</td>
+                                <td class="n">Limitado</td>
+                            </tr>
+                            <tr>
+                                <td>Chat directo con el equipo</td>
+                                <td class="y">Sí</td>
+                                <td class="n">No</td>
+                                <td class="n">A veces</td>
+                            </tr>
+                            <tr>
+                                <td>Tienda integrada</td>
+                                <td class="y">Sí</td>
+                                <td class="n">No</td>
+                                <td class="n">Rara vez</td>
+                            </tr>
+                            <tr>
+                                <td>Pensada para urgencias 24 h</td>
+                                <td class="y">Sí</td>
+                                <td class="n">—</td>
+                                <td class="n">No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipo" style="background:var(--mist)">
+            <div class="wrap">
+                <h2>Quiénes somos</h2>
+                <p class="lead">Equipo PataSOS, estudiantes de Desarrollo de Aplicaciones Multiplataforma.</p>
+                <div class="team">
+                    <div class="member">
+                        <div class="avatar" aria-hidden="true">L</div>
+                        <div><b>Lucía Elizo</b><br>Diseño y desarrollo</div>
+                    </div>
+                    <div class="member">
+                        <div class="avatar" aria-hidden="true">2</div>
+                        <div><b>[Nombre del integrante 2]</b><br>[Rol]</div>
+                    </div>
+                    <div class="member">
+                        <div class="avatar" aria-hidden="true">3</div>
+                        <div><b>[Nombre del integrante 3]</b><br>[Rol]</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <div class="wrap">
+                <h2>¿Hablamos?</h2>
+                <p class="lead" style="margin:0 auto 1.2rem">Cuéntanos tu idea, tus dudas o tu experiencia con las
+                    urgencias veterinarias.</p>
+                <a class="mail" href="mailto:hola@patasos.example">hola@patasos.example</a>
+                <p style="margin-top:.8rem;font-size:.9rem;opacity:.8">Correo ficticio, creado para un proyecto de
+                    clase.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2026 PataSOS · Proyecto académico</footer>
+</body>
+
+</html>
